@@ -79,6 +79,8 @@ describe('Maybe:', () => {
 
   describe('Nothing:', () => {
 
+    // note: M.Nothing === {}
+
     it('should catch an undefined value', () => {
       const a = { a: { b: 1 } }
       const lookup = x => x ? M.Just(x) : M.Nothing()
@@ -86,21 +88,51 @@ describe('Maybe:', () => {
       expect(r).toBe( M.Nothing() )
     })
 
-    it('isNothing')
+    it('isNothing', () => {
+      // type check for Nothing
+      const r = M.Nothing().isNothing
+      expect(r).toBe(true)
+    })
 
-    it('getOrElse Nothing')
+    it('getOrElse Nothing', () => {
+      // provide a default value if not found
+      const r = M.Nothing().getOrElse('not found')
+      expect(r).toBe('not found')
+    })
 
-    it('maybe')
+    it('ap', () => {
+      const r = M.Nothing(R.inc).ap( M.Just(1) )
+      expect(r).toEqual( M.Nothing() )
+    })
 
-    it('ap')
+    it('chain', () => {
+      // returns Nothing(), an empty object regardless
+      const r = M.Nothing(42).chain(R.inc)
+      expect(r).toEqual( M.Nothing() )
+    })
 
-    it('chain')
+    it('equals', () => {
+      // always equals Nothing() || {}
+      const r = M.Nothing().equals( M.Nothing() )
+      expect(r).toBe(true)
+    })
 
-    it('equals')
+    it('not equals', () => {
+      // check equality
+      const r = M.Nothing().equals(42)
+      expect(r).toBe(false)
+    })
 
-    it('reduce')
+    it('reduce', () => {
+      // ignores value, only returns additional param
+      const r = M.Nothing(41).reduce(R.add, 1)
+      expect(r).toEqual( 1 )
+    })
 
-    it('toString')
+    it('toString', () => {
+      const r = M.Nothing().toString()
+      expect(r).toBe('Maybe.Nothing()')
+    })
 
   })
 
@@ -111,8 +143,8 @@ describe('Maybe:', () => {
     expect(r).toBe( 2 )
   })
 
-  it('chainRec')
-
-  it('datatype')
+  xit('chainRec', () => {
+    // unclear how this works
+  })
 
 })
