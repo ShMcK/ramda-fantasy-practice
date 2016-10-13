@@ -16,5 +16,12 @@
   },
   "jest": {
     "testRegex": "/demos/.*.(js)$"
+  },
+  "devDependencies": {
+    "babel-jest": "^16.0.0",
+    "babel-plugin-transform-async-to-generator": "^6.16.0",
+    "babel-polyfill": "^6.16.0",
+    "babel-preset-stage-3": "^6.17.0",
+    "jest-cli": "^16.0.1"
   }
 }
