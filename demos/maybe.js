@@ -29,21 +29,51 @@ describe('Maybe:', () => {
       expect(r).toEqual( M.Just({ a: { b: 2, c: 2}}) )
     })
 
-    it('isJust')
+    it('isJust', () => {
+      // true if type is Just
+      const r = M.of(1)
+        .isJust
+      expect(r).toBe(true)
+    })
 
-    it('getOrElse Just')
+    it('getOrElse', () => {
+      // unwrap a value
+      const r = M.of(1)
+        .getOrElse()
+      expect(r).toBe(1)
+    })
 
-    it('maybe')
+    it('ap', () => {
+      // takes a function and applies a value
+      const r = M.of(R.inc).ap( M.Just(1) )
+      expect(r).toEqual( M.Just(2) )
+    })
 
-    it('ap')
+    it('chain', () => {
+      // applies a function and unwraps the value
+      const r = M.of(1)
+        .chain(R.inc)
+      expect(r).toEqual( 2 )
+    })
 
-    it('chain')
+    it('equals', () => {
+      // equality
+      const r = M.of(1).equals(M.of(1))
+      expect(r).toBe(true)
+    })
 
-    it('equals')
+    it('reduce', () => {
+      // applies a function and param to the value
+      const r = M.of(1).reduce(R.add, 5)
+      // add(5, 1)
+      expect(r).toBe(6)
+    })
 
-    it('reduce')
-
-    it('toString')
+    it('toString', () => {
+      // stringify Maybe.Type(value)
+      const r = M.of(1).toString()
+      expect(r).toBe('Maybe.Just(1)')
+    })
 
   })
 
@@ -72,6 +102,13 @@ describe('Maybe:', () => {
 
     it('toString')
 
+  })
+
+  it('maybe', () => {
+    // not sure how this works
+    // or why this is useful
+    const r = M.maybe(0, R.inc, [1])
+    expect(r).toBe( 2 )
   })
 
   it('chainRec')

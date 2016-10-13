@@ -5,7 +5,7 @@
   "main": "readme.md",
   "private": true,
   "scripts": {
-    "test": "jest"
+    "test": "jest --watch"
   },
   "keywords": [],
   "author": "Shawn McKay <shawn.j.mckay@gmail.com>",
