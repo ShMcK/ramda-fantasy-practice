@@ -3,16 +3,21 @@
 const F = require('ramda-fantasy').Future
 const R = require('ramda')
 
-xdescribe('Future', () => {
+describe('Future', () => {
 
-  xit('basic resolve', async () => {
-    // note: nothing is executed until fork is called
-    const r = await new F((reject, resolve) => {
-      setTimeout(() => resolve('success'))
-      // reject('fail')
-      }).fork(console.error, console.log)
-    
+  it('basic Promise', async () => {
+    // for contrasting with Futures
+    let r = await new Promise((res, rej) => res('success'))
     expect(r).toBe('success')
+  })
+
+  it('basic Future', async () => {
+    // note: nothing is executed until fork is called
+    // fork cannot return anything, must use an extra variable
+    let x
+    let r = await F((rej, res) => res('success'))
+      .fork(console.error, y => x = y)
+    expect(x).toBe('success')
   })
 
   it('reject')
